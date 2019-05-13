@@ -449,6 +449,11 @@ textarea {
   box-sizing: border-box;
 }
 
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
 html {
   font-size: 62.5%;
 }
@@ -457,4 +462,6 @@ body {
   font-size: 1.6rem;
   font-family: 'Roboto', sans-serif;
   line-height: 1.4;
+  color: #1f1f1f;
+  background: #fafafa;
 }

@@ -1,23 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import Cell from './Cell';
+import Cells from './Cells';
 
 const Grid = () => {
-  const [cells, setCells] = useState([]);
-  useEffect(() => {
-    let curLength = 15 * 15;
-    populateGrid(curLength);
-  }, []);
-
-  const populateGrid = length => {
-    for (let i = 0; i < length; i++) {
-      setCells(() => cells.push(i));
-    }
-  };
-
   return (
     <StyledGrid>
-      {!cells.length ? 'loading' : cells.map(cell => <Cell key={cell} />)}
+      <Cells />
     </StyledGrid>
   );
 };
@@ -29,6 +17,8 @@ const StyledGrid = styled.div`
   width: 100%;
   height: 75vh;
   background: #eee;
+  border-top: 1px solid #a39492;
+  border-left: 1px solid #a39492;
 `;
 
 export default Grid;

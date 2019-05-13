@@ -4,10 +4,10 @@ import styled from 'styled-components';
 const Presets = () => {
   return (
     <StyledPresets>
-      <button>Preset 1</button>
-      <button>Preset 2</button>
-      <button>Preset 3</button>
-      <button>Preset 4</button>
+      <Preset>Preset 1</Preset>
+      <Preset>Preset 2</Preset>
+      <Preset>Preset 3</Preset>
+      <Preset>Preset 4</Preset>
     </StyledPresets>
   );
 };
@@ -15,6 +15,21 @@ const Presets = () => {
 const StyledPresets = styled.div`
   display: flex;
   flex-direction: column;
+  @media (max-width: 800px) {
+    flex-direction: row;
+  }
+`;
+
+const Preset = styled.button`
+  background: #ececec;
+  margin-bottom: 2rem;
+  padding: 1rem 1.5rem;
+  text-transform: uppercase;
+  font-weight: 300;
+  border: 1px solid transparent;
+  @media (max-width: 800px) {
+    margin-right: 2rem;
+  }
 `;
 
 export default Presets;
