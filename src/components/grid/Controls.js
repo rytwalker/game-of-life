@@ -7,6 +7,7 @@ const Controls = () => {
       <Control>Play</Control>
       <Control>Pause</Control>
       <Control>Reset</Control>
+      <Control>Next</Control>
     </div>
   );
 };
