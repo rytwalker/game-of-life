@@ -1,13 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Controls = ({ generation }) => {
+const Controls = ({ generation, getNextFrame }) => {
   return (
     <div>
       <Control>Play</Control>
       <Control>Pause</Control>
       <Control>Reset</Control>
-      <Control>Next</Control>
+      <Control onClick={() => getNextFrame((generation += 1))}>Next</Control>
       <Control>{generation}</Control>
     </div>
   );

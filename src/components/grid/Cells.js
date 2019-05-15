@@ -1,15 +1,16 @@
 import React from 'react';
 import Cell from './Cell';
 
-const Cells = ({ cellGraph }) => {
+const Cells = ({ verticies, updateOn }) => {
   return (
     <>
-      {Object.keys(cellGraph.verticies).map(cell => (
+      {Object.keys(verticies).map(cell => (
         <Cell
-          on={cellGraph.verticies[cell].on}
-          id={cellGraph.verticies[cell].id}
+          initOn={verticies[cell].on}
+          id={verticies[cell].id}
           key={parseInt(cell)}
-          cellGraph={cellGraph}
+          verticies={verticies}
+          updateOn={updateOn}
         />
       ))}
     </>

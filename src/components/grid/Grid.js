@@ -2,18 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 import Cells from './Cells';
 
-const Grid = ({ cellGraph }) => {
+const Grid = ({ verticies, updateOn }) => {
   return (
     <StyledGrid>
-      <Cells cellGraph={cellGraph} />
+      <Cells verticies={verticies} updateOn={updateOn} />
     </StyledGrid>
   );
 };
 
 const StyledGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   width: 100%;
   height: 75vh;
   background: #eee;

@@ -1,9 +1,6 @@
 /*
 This class is used to create a graph data structure with additional functionality to create a grid. This can simply be done by creating a new Graph, calling addVerticies while passing in an array, and creating connections by calling connectEdges and passing in the row length. The last function assumes a square grid. 
 */
-import React from 'react';
-import Cell from '../components/grid/Cell.js';
-
 class Graph {
   constructor() {
     this.verticies = {};
@@ -11,7 +8,6 @@ class Graph {
   addVertex(vertex) {
     // this.verticies[vertex] = new Set();
     this.verticies[vertex] = {
-      cell: <Cell />,
       on: false,
       neighbors: new Set(),
       id: parseInt(vertex)

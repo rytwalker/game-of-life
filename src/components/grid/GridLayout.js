@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Grid from './Grid';
 import Controls from './Controls';
@@ -6,15 +6,50 @@ import Presets from './Presets';
 import Graph from '../../graph/Graph';
 
 const GridLayout = () => {
-  const [generation, setGeneration] = useState(0);
   const cellGraph = new Graph();
-  cellGraph.addVerticies([1, 2, 3, 4]);
-  cellGraph.connectEdges(2);
+  const gridArr = [];
+  for (let i = 1; i <= 25; i++) {
+    gridArr.push(i);
+  }
+  cellGraph.addVerticies(gridArr);
+  cellGraph.connectEdges(5);
+  let [generation, setGeneration] = useState(0);
+  const [verticies, setVerticies] = useState(cellGraph.verticies);
+
+  const getNextFrame = () => {
+    let nextVerticies = { ...verticies };
+    for (let cell in nextVerticies) {
+      nextVerticies[cell] = { ...verticies[cell] };
+    }
+
+    for (let cellId in verticies) {
+      let neighborsOn = 0;
+      let cell = verticies[cellId];
+      let neighbors = verticies[cellId].neighbors;
+
+      neighbors.forEach(neighbor => {
+        if (verticies[neighbor].on) neighborsOn++;
+      });
+      if ((cell.on && neighborsOn < 2) || neighborsOn >= 4) {
+        nextVerticies[cellId].on = false;
+      } else if (!cell.on && neighborsOn === 3) {
+        nextVerticies[cellId].on = true;
+      }
+    }
+    console.log(nextVerticies);
+    setVerticies(nextVerticies);
+    // setGeneration((generation += 1));
+  };
+  const updateOn = id => {
+    verticies[id].on = !verticies[id].on;
+    setVerticies(verticies);
+  };
+  useEffect(getNextFrame, [generation]);
   return (
     <StyledGridLayout>
-      <Grid cellGraph={cellGraph} />
+      <Grid verticies={verticies} updateOn={updateOn} />
       <Presets />
-      <Controls generation={generation} />
+      <Controls generation={generation} getNextFrame={setGeneration} />
     </StyledGridLayout>
   );
 };
