@@ -1,14 +1,16 @@
 import React from 'react';
 import Cell from './Cell';
 
-const Cells = () => {
-  const cells = new Array(15 * 15).fill(Cell);
-  console.log(cells[0]);
-  console.log(cells);
+const Cells = ({ cellGraph }) => {
   return (
     <>
-      {cells.map((cell, i) => (
-        <Cell key={i + 1} id={i + 1} />
+      {Object.keys(cellGraph.verticies).map(cell => (
+        <Cell
+          on={cellGraph.verticies[cell].on}
+          id={cellGraph.verticies[cell].id}
+          key={parseInt(cell)}
+          cellGraph={cellGraph}
+        />
       ))}
     </>
   );

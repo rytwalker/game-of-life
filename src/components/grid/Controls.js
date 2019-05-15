@@ -1,13 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Controls = () => {
+const Controls = ({ generation }) => {
   return (
     <div>
       <Control>Play</Control>
       <Control>Pause</Control>
       <Control>Reset</Control>
       <Control>Next</Control>
+      <Control>{generation}</Control>
     </div>
   );
 };

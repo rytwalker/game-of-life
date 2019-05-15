@@ -1,9 +1,15 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-const Cell = () => {
+const Cell = ({ id, cellGraph }) => {
   const [on, setOn] = useState(false);
-  return <StyledCell on={on} onClick={() => setOn(!on)} />;
+  const handleClick = () => {
+    cellGraph.verticies[id]['on'] = !on;
+    setOn(!on);
+    console.log(cellGraph);
+  };
+
+  return <StyledCell on={on} onClick={handleClick} />;
 };
 
 const StyledCell = styled.div`
