@@ -1,3 +1,7 @@
+/*
+This class is used to create a graph data structure with additional functionality to create a grid. This can simply be done by creating a new Graph, calling addVerticies while passing in an array, and creating connections by calling connectEdges and passing in the row length. The last function assumes a square grid. 
+*/
+
 class Graph {
   constructor() {
     this.verticies = {};
@@ -15,38 +19,64 @@ class Graph {
     }
   }
 
+  addVerticies(array) {
+    for (let i = 0; i < array.length; i++) {
+      this.addVertex(i + 1);
+    }
+  }
+
   connectEdges(size) {
     for (let vert in this.verticies) {
-      if (parseInt(vert) <= size * size - size) {
-        if (parseInt(vert) % size === 1) {
-          let nextVert = (parseInt(vert) + 1).toString();
-          let belowVert = (parseInt(vert) + size).toString();
-          let belowPlusOneVert = (parseInt(vert) + size + 1).toString();
-          this.addEdge(vert, nextVert);
-          this.addEdge(vert, belowVert);
-          this.addEdge(vert, belowPlusOneVert);
-        } else if (parseInt(vert) % size === 0) {
-          let belowVert = (parseInt(vert) + size).toString();
-          let belowMinusOneVert = (parseInt(vert) + size - 1).toString();
-          this.addEdge(vert, belowVert);
-          this.addEdge(vert, belowMinusOneVert);
+      let vertInt = parseInt(vert);
+      let notInLastRow = vertInt <= size * size - size;
+
+      if (notInLastRow) {
+        if (vertInt % size === 1) {
+          this._addEdgesToLeftVert(vert, vertInt, size);
+        } else if (vertInt % size === 0) {
+          this._addEdgesToRightVert(vert, vertInt, size);
         } else {
-          let nextVert = (parseInt(vert) + 1).toString();
-          let belowVert = (parseInt(vert) + size).toString();
-          let belowPlusOneVert = (parseInt(vert) + size + 1).toString();
-          let belowMinusOneVert = (parseInt(vert) + size - 1).toString();
-          this.addEdge(vert, nextVert);
-          this.addEdge(vert, belowVert);
-          this.addEdge(vert, belowPlusOneVert);
-          this.addEdge(vert, belowMinusOneVert);
+          this._addEdgesToVert(vert, vertInt, size);
         }
       } else {
-        if (parseInt(vert) % size !== 0) {
-          let nextVert = (parseInt(vert) + 1).toString();
-          this.addEdge(vert, nextVert);
+        if (vertInt % size !== 0) {
+          this.addEdge(vert, this._getNextVert(vertInt));
         }
       }
     }
+  }
+
+  _getNextVert(vert) {
+    return (vert + 1).toString();
+  }
+
+  _getBelowVert(vert, size) {
+    return (vert + size).toString();
+  }
+
+  _getBelowPlusOneVert(vert, size) {
+    return (vert + size + 1).toString();
+  }
+
+  _getBelowMinusOneVert(vert, size) {
+    return (vert + size - 1).toString();
+  }
+
+  _addEdgesToVert(vert, vertInt, size) {
+    this.addEdge(vert, this._getNextVert(vertInt));
+    this.addEdge(vert, this._getBelowVert(vertInt, size));
+    this.addEdge(vert, this._getBelowPlusOneVert(vertInt, size));
+    this.addEdge(vert, this._getBelowMinusOneVert(vertInt, size));
+  }
+  _addEdgesToLeftVert(vert, vertInt, size) {
+    this.addEdge(vert, this._getNextVert(vertInt));
+    this.addEdge(vert, this._getBelowVert(vertInt, size));
+    this.addEdge(vert, this._getBelowPlusOneVert(vertInt, size));
+  }
+
+  _addEdgesToRightVert(vert, vertInt, size) {
+    this.addEdge(vert, this._getBelowVert(vertInt, size));
+    this.addEdge(vert, this._getBelowMinusOneVert(vertInt, size));
   }
 }
 
@@ -80,8 +110,6 @@ const numbers = [
   25
 ];
 
-for (let i = 0; i < numbers.length; i++) {
-  testGraph.addVertex(numbers[i]);
-}
+testGraph.addVerticies(numbers);
 testGraph.connectEdges(5);
 console.log(testGraph.verticies);
