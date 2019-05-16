@@ -42,7 +42,7 @@ const GridLayout = () => {
   };
   const updateOn = id => {
     verticies[id].on = !verticies[id].on;
-    setVerticies(verticies);
+    setVerticies({ ...verticies });
   };
   useEffect(getNextFrame, [generation]);
   return (
