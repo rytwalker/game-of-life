@@ -1,21 +1,19 @@
 import React, { useState, useEffect } from 'react';
+import delay from 'delay';
 import styled from 'styled-components';
 import Grid from './Grid';
 import Controls from './Controls';
 import Presets from './Presets';
-import Graph from '../../graph/Graph';
+import { initGraph } from '../../graph/Graph';
 
 const GridLayout = () => {
-  const cellGraph = new Graph();
-  const gridArr = [];
-  for (let i = 1; i <= 25; i++) {
-    gridArr.push(i);
-  }
-  cellGraph.addVerticies(gridArr);
-  cellGraph.connectEdges(5);
+  // Current initialization
+  const cellGraph = initGraph(15);
   let [generation, setGeneration] = useState(0);
   const [verticies, setVerticies] = useState(cellGraph.verticies);
+  const [isPlaying, setIsPlaying] = useState(true);
 
+  // Updates the state of verticies ie on/off
   const getNextFrame = () => {
     let nextVerticies = { ...verticies };
     for (let cell in nextVerticies) {
@@ -36,10 +34,37 @@ const GridLayout = () => {
         nextVerticies[cellId].on = true;
       }
     }
-    console.log(nextVerticies);
     setVerticies(nextVerticies);
-    // setGeneration((generation += 1));
   };
+
+  // Reset state
+  const resetState = () => {
+    let nextVerticies = { ...verticies };
+    for (let cell in nextVerticies) {
+      nextVerticies[cell] = { ...verticies[cell], on: false };
+    }
+    setVerticies(nextVerticies);
+    setGeneration(0);
+  };
+
+  const play = async () => {
+    if (isPlaying) {
+      setGeneration((generation += 1));
+      // setIsPlaying(!isPlaying);
+      while (isPlaying) {
+        console.log('playing');
+        await delay(1000);
+        await setGeneration((generation += 1));
+      }
+    }
+  };
+
+  const pause = () => {
+    if (isPlaying) setIsPlaying(false);
+    console.log('paused');
+  };
+
+  // Updates state of single cell returns clean copy of verticies
   const updateOn = id => {
     verticies[id].on = !verticies[id].on;
     setVerticies({ ...verticies });
@@ -49,7 +74,13 @@ const GridLayout = () => {
     <StyledGridLayout>
       <Grid verticies={verticies} updateOn={updateOn} />
       <Presets />
-      <Controls generation={generation} getNextFrame={setGeneration} />
+      <Controls
+        generation={generation}
+        getNextFrame={setGeneration}
+        resetState={resetState}
+        play={play}
+        pause={pause}
+      />
     </StyledGridLayout>
   );
 };

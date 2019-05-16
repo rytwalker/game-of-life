@@ -6,7 +6,7 @@ const Cells = ({ verticies, updateOn }) => {
     <>
       {Object.keys(verticies).map(cell => (
         <Cell
-          initOn={verticies[cell].on}
+          on={verticies[cell].on}
           id={verticies[cell].id}
           key={parseInt(cell)}
           verticies={verticies}

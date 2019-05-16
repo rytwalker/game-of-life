@@ -1,16 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
-const Cell = ({ id, initOn, verticies, updateOn }) => {
-  // const [on, setOn] = useState(initOn);
-  const handleClick = () => {
-    // verticies[id]['on'] = !on;
-    // setOn(!on);
-    updateOn(id);
-    console.log(verticies);
-  };
+const Cell = ({ id, on, verticies, updateOn }) => {
+  const handleClick = () => updateOn(id);
 
-  return <StyledCell on={initOn} onClick={handleClick} />;
+  return <StyledCell on={on} onClick={handleClick} />;
 };
 
 const StyledCell = styled.div`

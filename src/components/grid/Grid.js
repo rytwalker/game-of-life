@@ -12,8 +12,8 @@ const Grid = ({ verticies, updateOn }) => {
 
 const StyledGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(15, 1fr);
+  grid-template-columns: repeat(15, 1fr);
   width: 100%;
   height: 75vh;
   background: #eee;

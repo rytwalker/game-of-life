@@ -91,36 +91,15 @@ class Graph {
 }
 
 export default Graph;
-// const testGraph = new Graph();
 
-// const numbers = [
-//   1,
-//   2,
-//   3,
-//   4,
-//   5,
-//   6,
-//   7,
-//   8,
-//   9,
-//   10,
-//   11,
-//   12,
-//   13,
-//   14,
-//   15,
-//   16,
-//   17,
-//   18,
-//   19,
-//   20,
-//   21,
-//   22,
-//   23,
-//   24,
-//   25
-// ];
-
-// testGraph.addVerticies(numbers);
-// testGraph.connectEdges(5);
-// console.log(testGraph.verticies);
+export const initGraph = size => {
+  const graph = new Graph();
+  const gridArr = [];
+  let totalVerts = size * size;
+  for (let i = 1; i <= totalVerts; i++) {
+    gridArr.push(i);
+  }
+  graph.addVerticies(gridArr);
+  graph.connectEdges(size);
+  return graph;
+};
